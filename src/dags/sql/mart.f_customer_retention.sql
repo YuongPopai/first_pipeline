@@ -34,12 +34,12 @@ from (
     SELECT 
         customer_id,
         item_id,
-        payment_amount,
+        sum(payment_amount) as payment_amount,
         count(*) as order_count,
         status as status,
         date_actual
     from mart.f_sales f
     join mart.d_calendar c on f.date_id = c.date_id
-    group by customer_id, item_id, payment_amount, status, date_actual
+    group by customer_id, item_id, status, date_actual
 ) as orders
 group by period_id, orders.item_id;
